@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskModule } from './task/task.module';
+import { StatusModule } from './status/status.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { TaskModule } from './task/task.module';
     }),
     UserModule,
     TaskModule,
+    StatusModule,
   ],
   controllers: [],
   providers: [],

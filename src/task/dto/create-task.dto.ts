@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Status } from 'src/status/status.entity';
 
 export class CreateTaskDto {
   @IsString()
@@ -7,4 +8,7 @@ export class CreateTaskDto {
 
   @IsString()
   description: string;
+
+  @IsOptional()
+  status?: Status;
 }
