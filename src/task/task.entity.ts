@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Status } from 'src/status/status.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Task {
@@ -10,4 +11,10 @@ export class Task {
 
   @Column()
   description: string;
+
+  @ManyToOne(() => Status, (status) => status.id, {
+    eager: true,
+    onUpdate: 'CASCADE',
+  })
+  status?: Status;
 }
