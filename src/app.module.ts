@@ -20,7 +20,5 @@ import { StatusModule } from './status/status.module';
     TaskModule,
     StatusModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

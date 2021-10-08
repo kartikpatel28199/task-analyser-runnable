@@ -1,6 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { UserCredentialDto } from './user-credential.dto';
-import { User } from './user.entity';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -13,7 +12,10 @@ export class UserController {
   }
 
   @Post('/signin')
-  signIn(@Body() userCredentialDto: UserCredentialDto): Promise<User> {
+  signIn(
+    @Body() userCredentialDto: UserCredentialDto,
+  ): Promise<{ accessToken: string }> {
+    console.log('User requested');
     return this.userService.signIn(userCredentialDto);
   }
 }

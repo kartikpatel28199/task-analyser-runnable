@@ -1,7 +1,13 @@
-import { type } from 'os';
+import { Exclude } from 'class-transformer';
 import { Status } from 'src/status/status.entity';
 import { User } from 'src/user/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Task {
@@ -14,12 +20,16 @@ export class Task {
   @Column()
   description: string;
 
+  @Column({ type: 'date' })
+  creationDate: Date;
+
   @ManyToOne((type) => User, (user) => user.task, { eager: false })
+  @Exclude({ toPlainOnly: true })
   user: User;
 
   @ManyToOne(() => Status, (status) => status.id, {
+    cascade: true,
     eager: true,
-    onUpdate: 'CASCADE',
   })
   status?: Status;
 }

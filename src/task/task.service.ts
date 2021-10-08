@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Status } from 'src/status/status.entity';
+import { User } from 'src/user/user.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { CustomDatesDto } from './dto/custom-dates.dto';
 import { GetTaskFilterDto } from './dto/get-task.dto';
 import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 import { Task } from './task.entity';
@@ -14,18 +16,39 @@ export class TaskService {
     private tasksRepository: TasksRepository,
   ) {}
 
-  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-    return this.tasksRepository.createTask(createTaskDto);
+  async createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDto, user);
   }
 
-  async getTask(getTaskFilterDto: GetTaskFilterDto): Promise<Task[]> {
-    return this.tasksRepository.getTask(getTaskFilterDto);
+  async getTask(
+    getTaskFilterDto: GetTaskFilterDto,
+    user: User,
+  ): Promise<Task[]> {
+    return this.tasksRepository.getTask(getTaskFilterDto, user);
   }
 
   async updateTaskStatus(
     status: UpdateTaskStatusDto,
     id: string,
+    user: User,
   ): Promise<Task> {
-    return this.tasksRepository.updateTaskStatus(status, id);
+    return this.tasksRepository.updateTaskStatus(status, id, user);
+  }
+
+  async generateUsersReport(): Promise<string> {
+    return this.tasksRepository.generateUserReport();
+  }
+
+  async generateUserDailyReport(
+    customDatesDto: CustomDatesDto,
+  ): Promise<Task[]> {
+    //
+    return this.tasksRepository.generateUserDailyReport(customDatesDto);
+  }
+
+  async generateUserWeeklyReport(
+    customDatesDto: CustomDatesDto,
+  ): Promise<Task[]> {
+    return this.tasksRepository.generateUserWeeklyReport(customDatesDto);
   }
 }

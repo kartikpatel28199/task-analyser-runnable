@@ -3,6 +3,5 @@ import { Status } from 'src/status/status.entity';
 
 export class UpdateTaskStatusDto {
   @IsNotEmpty()
-  @IsString()
-  status: Status;
+  status: any;
 }
